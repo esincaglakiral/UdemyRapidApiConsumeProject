@@ -1,0 +1,107 @@
+﻿
+@model List<ResultRoomDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+}
+@{
+    int count = 0;
+}
+
+<div class="container">
+
+    <div class="table-responsive mt-3">
+        <h1 class="card-title text-muted mb-4">Oda Listesi</h1>
+
+        <a href="/AdminRoom/AddRoom/" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Yeni Oda Ekle</a>
+        <table class="table table-hover mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Oda Resmi</th>
+                    <th scope="col">Başlık</th>
+                    <th scope="col">Oda Numarası</th>
+                    <th scope="col">Oda Puanı</th>
+                    <th scope="col">Fiyat</th>
+                    <th scope="col">Yatak Sayısı</th>
+                    <th scope="col">Banyo Sayısı</th>
+               
+                    <th scope="col">Wifi</th>
+
+                    <th colspan="2" class="text-center" scope="col">İşlemler</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                count++;
+                <tbody>
+                    <tr>
+                       
+                        <td>@count</td>
+                        <td>
+                            <img src="@item.RoomCoverImage" alt="@item.Title" style="width: 100px; height: auto;" />
+                        </td>
+                        <td>@item.Title</td>
+                        <td>@item.RoomNumber</td>
+                        <td>@item.Star</td>
+                        <td>@item.Price.ToString("C")</td>
+                        <td>@item.BedCount</td>
+                        <td>@item.BathCount</td>
+                     
+                        <td>
+                            @if (item.Wifi == true)
+                            {
+                                <span class="badge bg-success">Var</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Yok</span>
+                            }
+                        </td>
+                        <td style="width:40px">
+                            <span>
+                                <button onclick="deleteRoom(@item.RoomId)" class="btn btn-outline-danger"><i class="fa fa-trash"></i> Sil</button>
+                            </span>
+
+                        </td>
+                        <td style="width:40px">
+                            <span>
+                                <a href="/AdminRoom/UpdateRoom/@item.RoomId" class="btn btn-outline-success"><i class="fa fa-pencil m-r-5"> Güncelle </i></a>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+
+            }
+
+        </table>
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+    function deleteRoom(id) {
+        Swal.fire({
+            title: "Kayıt Silme Onayı",
+            html: "Oda kaydını silmek istediğinize emin misiniz?",
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Sil",
+            cancelButtonText: "Vazgeç"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/AdminRoom/DeleteRoom/" + id;
+            }
+            else {
+                Toast.fire({
+                    icon: "warning",
+                    title: "Kayıt Silme işlemi iptal edildi."
+                });
+            }
+        });
+    }
+</script>
+

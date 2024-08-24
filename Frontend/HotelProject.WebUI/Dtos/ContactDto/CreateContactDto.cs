@@ -1,0 +1,13 @@
+﻿namespace HotelProject.WebUI.Dtos.ContactDto
+{
+    public class CreateContactDto
+    {
+        public string NameSurname { get; set; }
+        public string Mail { get; set; }
+        public string Subject { get; set; }
+        public string MessageContent { get; set; }
+        public DateTime Date { get; set; }
+
+        public int MessageCategoryId { get; set; }
+    }
+}

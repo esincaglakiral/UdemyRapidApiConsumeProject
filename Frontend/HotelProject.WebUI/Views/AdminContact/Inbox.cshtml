@@ -1,0 +1,99 @@
+﻿﻿
+@model X.PagedList.IPagedList<InboxContactDto>
+@using X.PagedList.Mvc.Core
+@{
+    ViewData["Title"] = "Inbox";
+    Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+}
+
+
+<div class="email-left-box">
+    <a href="/AdminContact/AddSendMessage/" class="btn btn-primary btn-block">Yeni Mesaj Oluştur</a>
+
+    <div class="mail-list mt-4">
+        <a href="/AdminContact/Inbox/" class="list-group-item border-0 text-primary p-r-0"><i class="fa fa-inbox font-18 align-middle mr-2"></i> <b>Gelen Kutusu</b> <span class="badge badge-primary badge-sm float-right m-t-5">@ViewBag.contactCount</span> </a>
+
+        <a href="/AdminContact/Sendbox/" class="list-group-item border-0 text-info p-r-0"><i class="fa fa-paper-plane font-18 align-middle mr-2"></i><b> Giden Kutusu</b><span class="badge badge-info badge-sm float-right m-t-5">@ViewBag.sendMessageCount</span> </a>
+
+        <a href="#" class="list-group-item border-0 text-danger p-r-0"><i class="fa fa-star-o font-18 align-middle mr-2"></i><b> Önemli</b> <span class="badge badge-danger badge-sm float-right m-t-5">50</span> </a>
+
+        <a href="#" class="list-group-item border-0 text-warning p-r-0"><i class="mdi mdi-file-document-box font-18 align-middle mr-2"></i><b>Taslaklar</b> <span class="badge badge-warning badge-sm float-right m-t-5">18</span> </a>
+
+        <a href="#" class="list-group-item border-0 text-dark p-r-0"><i class="fa fa-trash font-18 align-middle mr-2"></i><b>Çöp Kutusu</b><span class="badge badge-dark badge-sm float-right m-t-5">36</span></a>
+    </div>
+
+    <h5 class="mt-5 m-b-10">Kategoriler</h5>
+    @await Html.PartialAsync("SideBarAdminContactCategoryPartial")
+</div>
+            <div class="email-right-box">
+                <div role="toolbar" class="toolbar">
+                    <div class="btn-group">
+                        <button aria-expanded="false" data-toggle="dropdown" class="btn btn-dark dropdown-toggle" type="button">
+                            Gelen Mesajlar <span class="caret m-l-5"></span>
+                        </button>
+                    </div>
+                </div>
+    <div class="email-list m-t-15">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Konu</th>
+                    <th>Gönderen</th>
+                    <th>Mesaj</th>
+                    <th>Tarih</th> 
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><a href="/AdminContact/MessageDetailsByInbox/@item.ContactId">@item.Subject</a></td>
+                        <td><a href="/AdminContact/MessageDetailsByInbox/@item.ContactId">@item.NameSurname</a></td>
+                        <td><a href="/AdminContact/MessageDetailsByInbox/@item.ContactId">@(item.MessageContent.Length > 30 ? item.MessageContent.Substring(0, 30) + "..." : item.MessageContent)</a></td>
+                        <td><a href="/AdminContact/MessageDetailsByInbox/@item.ContactId">@(((DateTime)item.Date).ToString("dd MMM yyyy"))</a></td>
+                        <td>
+                            <button onclick="deleteInboxMessage(@item.ContactId)" class="btn btn-outline-danger"><i class="fa fa-trash"></i> Sil</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+            </div>
+
+<div class="pagination">
+    @Html.PagedListPager(Model, page => Url.Action("Inbox", new { page }),
+            new PagedListRenderOptions
+    {
+        LiElementClasses = new string[] { "page-item" },
+        PageClasses = new string[] { "page-link" },
+        Display = PagedListDisplayMode.IfNeeded
+    })
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function deleteInboxMessage(id) {
+        Swal.fire({
+            title: "Mesaj Silme Onayı",
+            html: "Bu mesajı silmek istediğinize emin misiniz?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Sil",
+            cancelButtonText: "Vazgeç"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/AdminContact/DeleteInboxMessage/" + id;
+            } else {
+                Swal.fire({
+                    icon: "info",
+                    title: "Silme işlemi iptal edildi."
+                });
+            }
+        });
+    }
+</script>

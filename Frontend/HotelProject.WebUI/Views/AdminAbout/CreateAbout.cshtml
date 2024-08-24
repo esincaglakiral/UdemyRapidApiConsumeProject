@@ -1,0 +1,37 @@
+﻿@model CreateAboutDto
+@{
+    ViewData["Title"] = "CreateAbout";
+    Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <h1 class="card-title text-muted mb-4">Hakkımızda Güncelleme sayfası</h1>
+    <form method="post">
+        <label>Başlık 1</label>
+        <input type="text" asp-for="Title1" class="form-control" />
+        <span asp-validation-for="Title1" class="text-danger"></span>
+        <br />
+        <label>Başlık 2</label>
+        <input type="text" asp-for="Title2" class="form-control" />
+        <span asp-validation-for="Title2" class="text-danger"></span>
+        <br />
+        <label>İçerik</label>
+        <input type="text" asp-for="Content" class="form-control" />
+        <span asp-validation-for="Content" class="text-danger"></span>
+        <br />
+        <label>Personel Sayısı</label>
+        <input type="text" asp-for="StafCount" class="form-control" />
+        <span asp-validation-for="StafCount" class="text-danger"></span>
+        <br />
+        <label>Oda Sayısı </label>
+        <input type="text" asp-for="RoomCount" class="form-control" />
+        <span asp-validation-for="RoomCount" class="text-danger"></span>
+        <br />
+        <label>Müşteri Sayısı</label>
+        <input type="text" asp-for="CustomerCount" class="form-control" />
+        <span asp-validation-for="CustomerCount" class="text-danger"></span>
+        <br />
+        <button class="btn btn-outline-primary"><i class="fa fa-plus"></i> Ekle</button>
+    </form>
+</div>
+

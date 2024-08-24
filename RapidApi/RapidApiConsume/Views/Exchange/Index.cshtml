@@ -1,0 +1,34 @@
+﻿
+@model List<ExchangeViewModel.Result>
+@{
+    Layout = null;
+}
+
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container">
+    <br /><br />
+    <table class="table table-bordered">
+        <tr>
+            <th>Şehrin adı</th>
+            <th>Şehirde bulunan otel sayısı</th>
+            <th>Şehrin bulunduğu ülke</th>
+            <th>Şehrin enlem koordinatı</th>
+            <th>Şehrin boylam koordinatı</th>
+            <th>Şehrin bulunduğu zaman dilimi adı</th>
+            <th>Şehrin zaman dilimi ofseti</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.name</td>
+                <td>@item.nr_hotels</td>
+                <td>@item.country</td>
+                <td>@item.latitude</td>
+                <td>@item.longitude</td>
+                <td>@item.timezone_name</td>
+                <td>@item.timezone_offset</td>
+            </tr>
+        }
+    </table>
+</div>

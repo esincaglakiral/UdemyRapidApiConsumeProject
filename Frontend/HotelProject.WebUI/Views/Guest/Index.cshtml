@@ -1,0 +1,83 @@
+﻿
+@model List<ResultGuestDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+}
+
+@{
+    int count = 0;
+}
+
+<div class="container">
+
+    <div class="table-responsive mt-3">
+        <h1 class="card-title text-muted mb-4">Misafir Listesi</h1>
+
+        <a href="/Guest/AddGuest/" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Yeni Misafir Ekle</a>
+        <table class="table table-hover mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Misafir Adı</th>
+                    <th scope="col">Misafir Soyadı</th>
+                    <th scope="col">Şehir</th>
+                    <th colspan="2" class="text-center" scope="col">İşlemler</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                count++;
+                <tbody>
+                    <tr>
+                        <td>@count</td>
+                        <td>@item.Name</td>
+                        <td>@item.Surname</td>
+                        <td>@item.City</td>
+                        <td style="width:40px">
+                            <span>
+                                <button onclick="deleteGuest(@item.GuestId)" class="btn btn-outline-danger"><i class="fa fa-trash "> Sil </i></button>
+                            </span>
+
+                        </td>
+                        <td style="width:40px">
+                            <span>
+                                <a href="/Guest/UpdateGuest/@item.GuestId" class="btn btn-outline-success"><i class="fa fa-pencil  m-r-5"> Güncelle</i></a>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+
+            }
+
+        </table>
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+    function deleteGuest(id) {
+        Swal.fire({
+            title: "Kayıt Silme Onayı",
+            html: "Personeli kaydını silmek istediğinize emin misiniz?",
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Sil",
+            cancelButtonText: "Vazgeç"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/Guest/DeleteGuest/" + id;
+            }
+            else {
+                Toast.fire({
+                    icon: "warning",
+                    title: "Kayıt Silme işlemi iptal edildi."
+                });
+            }
+        });
+    }
+</script>
+

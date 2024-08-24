@@ -1,0 +1,7 @@
+1. Api Testi ve Swagger
+2. swaggerda staff için get url istek => https://localhost:7185/api/Staff
+
+3. swaggerda staff için post url istek =>https://localhost:7185/api/Staff
+
+
+3. swaggerda testimonial için get url istek => https://localhost:7185/api/Testimonial

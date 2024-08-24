@@ -1,0 +1,87 @@
+﻿
+@model ResultBookingDto
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+}
+
+<h3>Rezervasyon Detayları</h3>
+<br />
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">@Model.NameSurname</h5>
+        <br />
+        <p class="card-text"><strong>Giriş Tarihi:</strong> @Model.CheckIn.ToString("dd-MMM-yyyy")</p>
+        <p class="card-text"><strong>Çıkış Tarihi:</strong> @Model.CheckOut.ToString("dd-MMM-yyyy")</p>
+        <p class="card-text">
+            <strong>Durum:</strong>
+            <span class="badge px-2 @(Model.Status == "Onaylandı" ? "badge-success" :
+                                          Model.Status == "İptal Edildi" ? "badge-danger" :
+                                          Model.Status == "Beklemede, Müşteri Aranacak" ? "badge-warning" : "badge-secondary")">
+                @Model.Status
+            </span>
+        </p>
+        <p class="card-text"><strong>Oda Numarası:</strong> @Model.RoomCount</p>
+        <p class="card-text"><strong>Yetişkin Sayısı:</strong> @Model.AdultCount</p>
+        <p class="card-text"><strong>Çocuk Sayısı:</strong> @Model.ChildCount</p>
+        <p class="card-text"><strong>Özel İstek:</strong> @Model.SpecialRequest</p>
+        <p class="card-text"><strong>Açıklama:</strong> @Model.Description</p>
+        <p class="card-text"><strong>Şehir:</strong> @Model.City</p>
+        <p class="card-text"><strong>Ülke:</strong> @Model.Country</p>
+        <br />
+        <div class="btn-group">
+            <a href="@Url.Action("Index", "AdminBooking")" class="btn btn-primary mr-2">Geri Dön</a>
+
+            <a href="@Url.Action("UpdateApproveReservation", "AdminBooking", new { id = Model.BookingId })"
+               class="btn btn-outline-success mx-2 @(Model.Status == "Onaylandı" ? "disabled" : "")">
+                Onayla
+            </a>
+
+            <a href="@Url.Action("UpdateCancelReservation", "AdminBooking", new { id = Model.BookingId })"
+               class="btn btn-outline-danger mx-2 @(Model.Status == "İptal Edildi" ? "disabled" : "")">
+                İptal Et
+            </a>
+
+            <a href="@Url.Action("UpdateWaitReservation", "AdminBooking", new { id = Model.BookingId })"
+               class="btn btn-outline-warning mx-2 @(Model.Status == "Beklemede, Müşteri Aranacak" ? "disabled" : "")">
+                Beklet
+            </a>
+
+            <a href="@Url.Action("UpdateBooking", "AdminBooking", new { id = Model.BookingId })"
+               class="btn btn-outline-info mx-2">
+                Güncelle
+            </a>
+
+            <a href="#" onclick="deleteReservation(@Model.BookingId)" class="btn btn-outline-danger mx-2">
+                Tamamen Sil
+            </a>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function deleteReservation(id) {
+        Swal.fire({
+            title: "Kayıt Silme Onayı",
+            text: "Bu rezervasyon kalıcı olarak silinsin mi? Bu işlemi geri alamazsınız!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Evet, sil!",
+            cancelButtonText: "Vazgeç"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/AdminBooking/DeleteReservation/" + id;
+            }
+            else {
+                Swal.fire({
+                    icon: "info",
+                    title: "Rezervasyon silme işlemi iptal edildi.",
+                });
+            }
+        });
+    }
+</script>
+

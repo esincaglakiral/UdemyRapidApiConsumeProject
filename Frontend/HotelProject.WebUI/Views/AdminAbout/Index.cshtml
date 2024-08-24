@@ -1,0 +1,70 @@
+﻿
+@model List<ResultAboutDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<div class="container">
+
+    <div class="table-responsive mt-3">
+        <h1 class="card-title text-muted mb-4">Hakkımızda Listesi</h1>
+        <table class="table table-hover mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Başlık1</th>
+                    <th scope="col">Başlık2</th>
+                    <th class="text-center" colspan="2">İşlem</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                count++;
+                <tbody>
+                    <tr>
+                        <td>@count</td>
+                        <td style="text-transform:capitalize">@item.Title1</td>
+                        <td style="text-transform:capitalize">@item.Title2</td>
+                        <td style="width:40px"><button onclick="deleteAbout(@item.AboutId)" class="btn btn-outline-danger"><i class="fa fa-trash "></i> Sil</button> </td>
+                        <td style="width:40px"><a href="/AdminAbout/UpdateAbout/@item.AboutId" class="btn btn-outline-success"><i class="fa fa-edit "></i> Güncelle</a> </td>
+
+
+                    </tr>
+                </tbody>
+
+            }
+            <a href="/AdminAbout/CreateAbout" class="btn btn-outline-primary"><i class="fa fa-plus "></i> Yeni Hakkımızda Ekle</a>
+        </table>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+    function deleteAbout(id) {
+        Swal.fire({
+            title: "Kayıt Silme Onayı",
+            html: "Hakkımızda kaydını silmek istediğinize emin misiniz?",
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Sil",
+            cancelButtonText: "Vazgeç"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/AdminAbout/DeleteAbout/" + id;
+            }
+            else {
+                Toast.fire({
+                    icon: "warning",
+                    title: "Kayıt Silme işlemi iptal edildi."
+                });
+            }
+        });
+    }
+</script>
+

@@ -1,0 +1,49 @@
+﻿﻿<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 border rounded p-1">
+            <div class="border rounded text-center p-1">
+                <div class="bg-white rounded text-center p-5">
+                    <h4 class="mb-4">Mail Bültenimize <span class="text-primary text-uppercase">Abone Olun</span></h4>
+                    <small>Spam mail göndermiyoruz. Kanalımıza abone olursanız sizlere indirimler ve firsatlar hakkında bilgi paylaşacağız.</small>
+                    <br />
+                    <br />
+                    <div class="position-relative mx-auto" style="max-width: 400px;">
+                        <input class="form-control w-100 py-3 ps-4 pe-5 " id="inputText" type="mail" placeholder="Mail Adresiniz">
+                        <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2 subcribe">Abone Ol</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/lib\jquery\dist\jquery.min.js"></script>
+<script>
+    $(function () {
+        $(".subcribe").click(function () {
+            var mail = document.getElementById("inputText").value;
+            if (mail == "" || mail == null) {
+                Swal.fire({
+                    title: "Uyarı",
+                    text: "Lütfen mail adresinizi giriniz.",
+                    icon: "warning"
+                });
+            }
+            else {
+                $.ajax({
+                    url: "/Default/SubscribeByEmail",
+                    type: 'post',
+                    data: { Mail: mail },
+                    success: function (data) {
+
+                        Swal.fire({
+                            title: "Teşekkürler!",
+                            text: "Mail bültenimize abone oldunuz otelimiz ile ilgili firsatlar ve indirimler hakkında bilgi alacaksınız bu işlemi dilerseniz iptal edebilirsiniz.",
+                            icon: "success"
+                        });
+                    }
+                });
+            }
+        });
+    })
+</script>

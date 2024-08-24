@@ -1,0 +1,39 @@
+﻿
+@{
+    Layout = null;
+    Layout = "~/Views/UILayout/Index.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<body>
+    <div class="container-xxl bg-white p-0">
+
+        @await Component.InvokeAsync("_DefaultSpinnerComponentPartial")
+
+
+        @await Component.InvokeAsync("_DefaultSliderComponentPartial")
+
+@*         @await Component.InvokeAsync("_DefaultReservationComponentPartial")
+ *@
+        @await Component.InvokeAsync("_DefaultAboutUsComponentPartial")
+
+        @await Component.InvokeAsync("_DefaultOurRoomsComponentPartial")
+
+        @await Component.InvokeAsync("_DefaultTrailerComponentPartial")
+
+        @await Component.InvokeAsync("_DefaultServiceComponentPartial")
+
+        @await Component.InvokeAsync("_DefaultTestimonialComponentPartial")
+
+        @await Component.InvokeAsync("_DefaultTeamComponentPartial")
+
+        @await Component.InvokeAsync("_DefaultSubscribeComponentPartial")
+
+
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+</body>
+</html>

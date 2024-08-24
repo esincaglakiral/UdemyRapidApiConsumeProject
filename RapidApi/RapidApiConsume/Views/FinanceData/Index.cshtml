@@ -1,0 +1,36 @@
+﻿@model List<FinanceDataViewModel.Bestcoin>
+
+@{
+    Layout = null;
+}
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<h2>Best Coins</h2>
+<div class="container">
+    <br /><br />
+    <table class="table table-bordered">
+
+        <tr>
+            <th>Icon</th>
+            <th>Name</th>
+            <th>Symbol</th>
+            <th>Link</th>
+        </tr>
+
+
+        @foreach (var coin in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@coin.iconUrl" alt="@coin.name" width="32" height="32" />
+                </td>
+                <td>@coin.name</td>
+                <td>@coin.symbol</td>
+                <td>
+                    <a href="@coin.coinrankingUrl" target="_blank">Siteye Git</a>
+                </td>
+            </tr>
+        }
+  
+</table>
+</div>

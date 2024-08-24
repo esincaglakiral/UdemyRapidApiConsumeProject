@@ -1,0 +1,60 @@
+﻿
+@model List<StaffViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Personel Adı</th>
+        <th>Personel Ünvan</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+        <th>Detaylar</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>@item.StaffId</th>
+            <td>@item.NameSurname</td>
+            <td>@item.Title</td>
+
+            <td>
+                <button onclick="deleteStaff(@item.StaffId)" class="btn mb-1 btn-rounded btn-outline-danger"><i class="fa fa-trash"> Sil </i></button>
+            </td>
+            <td><a href="/Staff/UpdateStaff/@item.StaffId" class="btn mb-1 btn-rounded btn-outline-warning"> <i class="fa fa-edit m-r-5"></i> Güncelle</a></td>
+            <td><a href="#" class="btn mb-1 btn-rounded btn-outline-dark">Detaylar</a></td>
+        </tr>
+    }
+</table>
+<a href="/Staff/AddStaff/" class="btn mb-1 btn-rounded btn-outline-primary"><i class="fa fa-plus"></i> Yeni Personel Girişi</a>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+
+    function deleteStaff(id) {
+        Swal.fire({
+            title: "Kayıt Silme Onayı",
+            html: "Personel kaydını silmek istediğinize emin misiniz?",
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Sil",
+            cancelButtonText: "Vazgeç"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/Staff/DeleteStaff/" + id;
+            }
+            else {
+                Toast.fire({
+                    icon: "warning",
+                    title: "Kayıt Silme işlemi iptal edildi."
+                });
+            }
+        });
+    }
+</script>

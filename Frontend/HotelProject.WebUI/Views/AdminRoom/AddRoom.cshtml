@@ -1,0 +1,49 @@
+﻿
+@model CreateRoomDto
+@{
+    ViewData["Title"] = "AddRoom";
+    Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+}
+
+<form method="post" asp-action="AddRoom" asp-asp-controller="AdminRoom">
+    <label>Oda Numarası</label>
+    <input type="text" asp-for="RoomNumber" class="form-control" />
+    <span asp-validation-for="RoomNumber" class="text-danger"></span>
+    <br />
+    <label>Oda Başlığı</label>
+    <input type="text" asp-for="Title" class="form-control" />
+    <span asp-validation-for="Title" class="text-danger"></span>
+    <br />
+    <label>Fiyat</label>
+    <input type="text" asp-for="Price" class="form-control" />
+    <span asp-validation-for="Price" class="text-danger"></span>
+    <br />
+    <label>Yatak Oda Sayısı</label>
+    <input type="text" asp-for="BedCount" class="form-control" />
+    <span asp-validation-for="BedCount" class="text-danger"></span>
+    <br />
+    <label>Banyo Sayısı</label>
+    <input type="text" asp-for="BathCount" class="form-control" />
+    <span asp-validation-for="BathCount" class="text-danger"></span>
+    <br />
+    <label>Yıldız Sayısı (0-5 <strong>Z<sup>+</sup></strong>)</label>
+    <input type="text" asp-for="Star" class="form-control" />
+    <span asp-validation-for="Star" class="text-danger"></span>
+    <br />
+
+    <label>Kapak fotoğrafı</label>
+    <input type="text" asp-for="RoomCoverImage" class="form-control" />
+    <span asp-validation-for="RoomCoverImage" class="text-danger"></span>
+    <br />
+    <label>Açıklama</label>
+    <textarea asp-for="Description" rows="5" class="form-control"></textarea>
+    <span asp-validation-for="Description" class="text-danger"></span>
+    <br />
+    <label class="font-weight-bold">Wifi Var mı ?</label><br />
+    <label>Evet, Var <input style="margin-left:5px" type="checkbox" asp-for="Wifi" /></label>
+    <br>
+    <small>Eğer odada wifi bulunuyorsa bu alanı işaretleyiniz.</small>
+    <br />
+    <button class="btn btn-primary" type="submit">Odayı Ekle</button>
+</form>
+

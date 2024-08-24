@@ -1,0 +1,60 @@
+﻿
+@model List<ResultRoomDto>
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-primary text-uppercase">Odalarımız</h6>
+            <h1 class="mb-5">Son eklenen <span class="text-primary text-uppercase"> 3 odamız</span></h1>
+        </div>
+        <div class="row g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="room-item shadow rounded overflow-hidden">
+                        <div class="position-relative">
+                            <img class="img-fluid" src="@(!string.IsNullOrEmpty(item.RoomCoverImage) ? item.RoomCoverImage : "/hotel-html-template/img/room-1.jpg")" alt="">
+                            <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">@item.Price.ToString("N0") ₺ / Gece</small>
+                        </div>
+                        <div class="p-4 mt-2">
+                            <div class="d-flex justify-content-between mb-3">
+                                <h5 class="mb-0">@item.Title</h5>
+                                <div class="ps-2">
+                                    @for (int i = 1; i <= Math.Floor(item.Star); i++)
+                                    {
+                                        <i class="fas fa-star text-primary"></i>
+                                    }
+                                    @if (item.Star % 1 != 0)
+                                    {
+                                        <i class="fas fa-star-half-alt text-primary"></i>
+                                    }
+                                    @for (int i = 1; i <= 5 - Math.Ceiling(item.Star); i++)
+                                    {
+                                        <i class="far fa-star text-primary"></i>
+                                    }
+
+
+
+                                </div>
+
+                            </div>
+                            <div class="d-flex mb-3">
+                                <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2"></i>@item.BedCount Yatak</small>
+                                <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2"></i>@item.BathCount Banyo</small>
+                                <small><i class="fa fa-wifi text-primary me-2"></i> Wifi @(item.Wifi==true?"Var":"Yok")</small>
+                            </div>
+                            <p class="text-body mb-3">@item.Description</p>
+                            <div class="d-flex justify-content-between">
+                                <a class="btn btn-sm btn-primary rounded py-2 px-4" href="/Booking/Index">Detay</a>
+                                <a class="btn btn-sm btn-dark rounded py-2 px-4" href="/Booking/Index">Rezervasyon</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+
+   

@@ -1,0 +1,77 @@
+﻿
+@model List<ResultServiceDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<div class="container">
+
+    <div class="table-responsive mt-3">
+        <h1 class="card-title text-muted mb-4">Hizmet Listesi</h1>
+
+     
+        <table class="table table-hover mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Hizmet Başlığı</th>
+                    <th colspan="2" class="text-center" scope="col">İşlemler</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                count++;
+                <tbody>
+                    <tr>
+                        <td>@count</td>
+                        <td>@item.Title</td>
+                        <td style="width:40px">
+                            <span>
+                                <button onclick="deleteService(@item.ServiceId)" class="btn mb-1 btn-rounded btn-outline-danger"><i class="fa fa-trash "> Sil </i></button>
+                            </span>
+
+                        </td>
+                        <td style="width:40px">
+                            <span>
+                                <a href="/Service/UpdateService/@item.ServiceId" class="btn mb-1 btn-rounded btn-outline-success"><i class="fa fa-pencil text-success m-r-5"> Güncelle </i></a>
+                            </span>
+                        </td>
+
+                    </tr>
+                </tbody>
+
+            }
+
+        </table>
+    </div>
+    <a href="/Service/AddService/" class="btn mb-1 btn-rounded btn-outline-primary"><i class="fa fa-plus"></i> Yeni Hizmet Ekle</a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+    function deleteService(id) {
+        Swal.fire({
+            title: "Kayıt Silme Onayı",
+            html: "Hizmet kaydını silmek istediğinize emin misiniz?",
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Sil",
+            cancelButtonText: "Vazgeç"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/Service/DeleteService/" + id;
+            }
+            else {
+                Toast.fire({
+                    icon: "warning",
+                    title: "Kayıt Silme işlemi iptal edildi."
+                });
+            }
+        });
+    }
+</script>
+

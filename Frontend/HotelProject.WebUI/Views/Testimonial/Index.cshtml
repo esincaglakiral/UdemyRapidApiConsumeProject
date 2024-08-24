@@ -1,0 +1,68 @@
+﻿
+@model List<TestimonialViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+}
+
+<div class="container">
+
+    <div class="table-responsive mt-3">
+        <h1 class="card-title text-muted mb-4">Referanslar Listesi</h1>
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Referans Görsel</th>
+        <th>Referans Adı</th>
+        <th>Referans Ünvanı</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>@item.TestimonialId</th>
+            <td><img src="@item.Image" style="width:75px; height:75px; border-radius:50%" /></td>
+            <td>@item.Name</td>
+            <td>@item.Title</td>
+                    <td>
+                        <button onclick="deleteTestimonial(@item.TestimonialId)" class="btn mb-1 btn-rounded btn-outline-danger"><i class="fa fa-trash"> Sil </i></button>
+                    </td>
+            <td><a href="/Testimonial/UpdateTestimonial/@item.TestimonialId" class="btn mb-1 btn-rounded btn-outline-success">Güncelle</a></td>
+            <td><a href="#" class="btn mb-1 btn-rounded btn-outline-dark">Detaylar</a></td>
+        </tr>
+    }
+</table>
+<a href="/Testimonial/AddTestimonial/" class="btn mb-1 btn-rounded btn-outline-info">Yeni Referans Girişi</a>
+
+     </div>
+ </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+
+    function deleteTestimonial(id) {
+        Swal.fire({
+            title: "Kayıt Silme Onayı",
+            html: "Referans kaydını silmek istediğinize emin misiniz?",
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Sil",
+            cancelButtonText: "Vazgeç"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/Testimonial/DeleteTestimonial/" + id;
+            }
+            else {
+                Toast.fire({
+                    icon: "warning",
+                    title: "Kayıt Silme işlemi iptal edildi."
+                });
+            }
+        });
+    }
+</script>

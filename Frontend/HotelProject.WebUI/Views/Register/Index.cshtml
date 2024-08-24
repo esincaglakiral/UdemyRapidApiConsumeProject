@@ -1,0 +1,87 @@
+﻿
+@model CreateNewUserDto
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hotelier Admin Kayıt Paneli</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="~/colorlib-regform-13/fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="~/colorlib-regform-13/css/style.css">
+</head>
+<body>
+
+    <div class="main">
+
+        <div class="container">
+            <div class="booking-content">
+                <div class="booking-image">
+                    <img class="booking-img" src="~/colorlib-regform-13/images/person-searching-hotels-website.jpg" alt="Booking Image" style="height:800px">
+                </div>
+                <div class="booking-form">
+                    <form id="booking-form" method="post">
+                        <h2>Harika Bir Tatil İçin Kayıt Ol!</h2>
+                        <div class="form-group form-input">
+                            <input type="text" class="form-control" asp-for="Name" value="">
+                            <label for="name" class="form-label">Adınız</label>
+                            <span asp-validation-for="Name" class="text-warning"></span>
+
+                        </div>
+                        <div class="form-group form-input">
+                            <input type="text" asp-for="Surname" value="" />
+                            <label for="name" class="form-label">Soyadınız</label>
+                            <span asp-validation-for="Surname" class="text-warning"></span>
+                        </div>
+                        <div class="form-group form-input">
+                            <input type="email" asp-for="Mail" value="" />
+                            <label for="name" class="form-label">Email Adresiniz</label>
+                            <span asp-validation-for="Mail" class="text-warning"></span>
+                        </div>
+
+                        <div class="form-group form-input">
+                            <input type="text" asp-for="UserName" value="" />
+                            <label for="name" class="form-label">Kullanıcı Adınız</label>
+                            <span asp-validation-for="UserName" class="text-warning"></span>
+                        </div>
+
+
+                        <div class="form-group form-input">
+                            <input type="password" asp-for="Password" value="" />
+                            <label for="name" class="form-label">Şifreniz</label>
+                            <span asp-validation-for="Password" class="text-warning"></span>
+                        </div>
+
+                        <div class="form-group form-input">
+                            <input type="password" asp-for="ConfirmPassword" value="" />
+                            <label for="name" class="form-label">Şifreyi Onaylayınız</label>
+                            <span asp-validation-for="ConfirmPassword" class="text-warning"></span>
+                        </div>
+                        <br />
+                        <div class="form-submit">
+                            <input type="submit" value="Kayıt Ol" class="submit" id="submit" name="submit" />
+                            <br />
+                            <a href="/Login/Index/" class="vertify-booking">Zaten Bir Hesabınız Varsa Oturum Açınız </a>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="~/colorlib-regform-13/vendor/jquery/jquery.min.js"></script>
+    <script src="~/colorlib-regform-13/js/main.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>
